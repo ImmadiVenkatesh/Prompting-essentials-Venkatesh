@@ -1,0 +1,23 @@
+Temperature 
+Think of sampling as taking a bite-sized piece of a much larger pie. When AI generates text, it doesn't consider every possible word or sentence at once. Instead, it samples a few possibilities based on the data it has been trained on. Sampling parameters are the guardrails that influence this process, allowing you to expand or limit the pool of options that a gen AI tool chooses from as it crafts its output. And the sampling parameter that dictates the probability of those options within that pool is called the temperature. You can think of it as giving your gen AI tool instructions on whether to give you a narrow, straightforward response, something much more creative, open-ended or surprising, or a response that’s somewhere in between. 
+
+Imagine that you're trying to decide what to eat. You have a menu of options, but you're not sure which one to choose, so you roll a die. (The word "die" is the singular form of the word "dice.") You can give your favorite dish three sides of the die, your next preference two, and your third preference one—or you can give them each two sides. Temperature determines the chances that you try something unexpected.
+
+Here’s how it all works. 
+
+
+Temperature sampling
+Imagine that you’re telling a friend about the errands you ran earlier that day. A sentence beginning, “This morning, I went to the” could end in a bunch of different ways, but there’s a better chance that your next words will be “grocery store” or “parking lot” than “haunted house” or “moon.” By changing the temperature, you can adjust the degree of randomness in a gen AI tool’s output.
+
+To better illustrate this concept, let's return to the example sentence: "This morning, I went to the". Based on analyzing extensive text,  the AI tool has determined the following probabilities for the next word:
+
+A table headed "This morning, I went to the..." listing words with the highest probabilities of completing the sentence.
+The word "grocery store" has the highest probability (0.41), meaning the tool considers it the best fit to finish the sentence. Adjusting the temperature affects how the tool samples words from this list of possibilities.
+
+A low temperature (e.g., 0.1) makes the tool strongly favor the words with the highest probabilities scores, such as "grocery store" in this scenario.
+
+A high temperature (e.g., 2.0) introduces more randomness and creativity into the tool's response—making it more likely to pick a word with a lower probability, such as "haunted house".
+
+Ultimately, an AI tool's temperature setting determines whether the tool is more likely to stick to the familiar and expected or roll the dice and offer you something more unexpected in its output.
+
+You can configure these settings in most gen AI models’ API, but when you open a new chat thread, the settings will revert to default.
