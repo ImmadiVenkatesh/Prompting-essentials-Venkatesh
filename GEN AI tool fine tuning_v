@@ -1,10 +1,13 @@
+Fine-tune gen AI outputs by adjusting tool settings
+Have you ever noticed that the same prompt can produce different results? That’s because generative AI tools use probability to decide what information to draw from when selecting its output. It’s like rolling dice to help you decide what to choose. But, you can actually influence the probability of an output being selected by changing the settings called sampling parameters. Knowing when and how to adjust these settings will allow you to pursue AI generated solutions with greater specificity or creativity, cutting down on hallucinations or generating more helpful results. 
+
+
 Temperature 
 Think of sampling as taking a bite-sized piece of a much larger pie. When AI generates text, it doesn't consider every possible word or sentence at once. Instead, it samples a few possibilities based on the data it has been trained on. Sampling parameters are the guardrails that influence this process, allowing you to expand or limit the pool of options that a gen AI tool chooses from as it crafts its output. And the sampling parameter that dictates the probability of those options within that pool is called the temperature. You can think of it as giving your gen AI tool instructions on whether to give you a narrow, straightforward response, something much more creative, open-ended or surprising, or a response that’s somewhere in between. 
 
 Imagine that you're trying to decide what to eat. You have a menu of options, but you're not sure which one to choose, so you roll a die. (The word "die" is the singular form of the word "dice.") You can give your favorite dish three sides of the die, your next preference two, and your third preference one—or you can give them each two sides. Temperature determines the chances that you try something unexpected.
 
 Here’s how it all works. 
-
 
 Temperature sampling
 Imagine that you’re telling a friend about the errands you ran earlier that day. A sentence beginning, “This morning, I went to the” could end in a bunch of different ways, but there’s a better chance that your next words will be “grocery store” or “parking lot” than “haunted house” or “moon.” By changing the temperature, you can adjust the degree of randomness in a gen AI tool’s output.
@@ -21,3 +24,101 @@ A high temperature (e.g., 2.0) introduces more randomness and creativity into th
 Ultimately, an AI tool's temperature setting determines whether the tool is more likely to stick to the familiar and expected or roll the dice and offer you something more unexpected in its output.
 
 You can configure these settings in most gen AI models’ API, but when you open a new chat thread, the settings will revert to default.
+
+Top-k sampling
+While the temperature score determines the probability that a gen AI tool will choose an individual response, other sampling parameters determine how many responses gen AI can choose from. The top-k value sets the total number of tokens—the basic units of information—from which the gen AI tool selects for its output, letting you hone in on your desired results with more precision.
+
+Setting the top-k value to the minimum of 1 (or setting the temperature to 0) will always guarantee the most likely result, which is called “greedy decoding.” This output is no longer random, it is deterministic, meaning the same result will be generated from the same prompt every time.
+
+A lower top-k value will narrow the field of available options for output, which can help with reducing hallucinations. When you’re doing market research but the results don’t make sense, it’s time to lower the top-k value.
+
+A higher top-k value can produce surprising results that can be useful for thinking outside the box. If you’re getting ready to launch a new service (or putting together a trivia team) and looking for a name that really pops, a higher top-k value might lead to a breakthrough.
+
+Top-p sampling
+Where the top-k value sets the number of tokens from which gen AI selects, the top-p value further refines that pool using total combined probability. Each token has a probability score between 0 and 1.0, quantifying the chances that gen AI will randomly select it in its response. Gen AI tools will only choose from tokens (starting with the most likely and going in descending order) until the sum of their probability scores reaches the given top-p value, which is another way of telling the tool what you need from it. Think of sampling like looking for a new comic-romance book to read at the library: You might grab 10 different books off the shelf (that’s your top-k score), but then you’ll further refine your selection based on which books best fit your preference, and that’s where top-p comes in. At a very low top-p score of 0.1, you’re guaranteed to read the most popular best-seller, but a higher top-p score like 0.8 might lead to a pleasant surprise from a lesser-known choice.
+
+At the default setting of 1.0, the top-p value has no effect on sampling.
+
+A lower top-p value (less than 1.0) removes the least likely responses from the gen AI tool’s consideration. When asking a gen AI tool to process statistics and present analysis to answer a specific question, a lower top-p value may work best.
+
+A higher top-p value allows the gen AI tool to choose between responses more freely, which can help with tasks that require comparisons between different outcomes. If you’re stuck while deciding what sort of promo event will raise awareness of your brand, repeating your prompt with a higher top-p value will bring you a wider variety of suggestions.
+
+                               The effect of temperature score on top-p and top-k selection
+The previous table of tokens, with brackets showing top-k and top-p selection under default and higher temperatures.
+With all three sampling parameters, a high score can spark surprising insights—but that increase in randomness can also lead to hallucinations, so don’t forget to check the output. 
+
+In creative brainstorming, the best idea isn’t necessarily the first one that comes to you, and AI’s most productive suggestions won’t always have the highest probability. 
+
+
+
+
+
+
+
+Of course. This is an excellent topic. These three parameters are like control knobs that let us steer the creativity and coherence of an AI model.
+Let's explain them in a way that is simple and visual, using an example anyone can understand, regardless of their native language.
+The Big Idea: How an AI Chooses the Next Word
+Imagine an AI has just written the sentence: "For breakfast, I want to eat..."
+The AI's job is to choose the next word. It has a list of all possible words and gives each one a probability score.
+Word	Probability (Chance)
+eggs	50%
+cereal	25%
+a car	10%
+happiness	8%
+shoes	5%
+the sky	2%
+Without any controls, the AI might sometimes pick a strange word like "a car." Temperature, Top-K, and Top-P are three different methods to control this choice, making the AI's response better.
+1. Temperature (The "Creativity" Knob)
+What it is: Temperature controls the randomness of the choice.
+Low Temperature (e.g., 0.2): Makes the AI more confident and predictable. It increases the probability of the most likely words and decreases the probability of the unlikely ones.
+High Temperature (e.g., 1.5): Makes the AI more creative and random. It makes all words more equal in probability.
+Example a non-English speaker can understand:
+Imagine our list of words is a set of hot coals.
+Low Temperature: The hottest coal (eggs at 50%) gets MUCH hotter, and the cooler coals (shoes, the sky) become almost cold. The AI will almost certainly pick eggs. The result is very safe and predictable.
+High Temperature: All coals are heated up to a similar temperature. eggs is still the hottest, but cereal, a car, and even happiness are now much closer in heat. The AI might pick a more creative or surprising word.
+Effect:
+Low Temp: Factual, correct, sometimes boring or repetitive text. Good for question-answering.
+High Temp: Creative, surprising, sometimes strange or incorrect text. Good for writing poetry or stories.
+2. Top-K Sampling (The "Top Choices" Method)
+What it is: Top-K forces the AI to choose a word from only the K most probable words. "K" is a number you choose.
+Low K (e.g., K=1): The AI can only choose from the #1 most likely word. It becomes completely deterministic (not random).
+High K (e.g., K=10): The AI can choose from the top 10 most likely words.
+Example a non-English speaker can understand:
+Imagine a race with many runners (our words).
+Top-K = 3: We only look at the top 3 finishers (eggs, cereal, a car). The AI must pick one of these three. All other runners (happiness, shoes, etc.) are ignored, even if they had a small chance.
+Top-K = 1: We only look at the winner (eggs). The AI has no choice. It must pick eggs.
+Effect:
+Low K: Limits the AI's choices to the most logical options. Reduces the chance of picking a bizarre word.
+High K: Allows for more variety and creativity, as the pool of choices is larger.
+3. Top-P (Nucleus) Sampling (The "Probability Budget" Method)
+What it is: Top-P is a more intelligent method. Instead of picking a fixed number of words (like Top-K), it picks a small group of words that have a combined probability of at least P.
+Low P (e.g., 0.50): The AI will only consider the most likely words that add up to a 50% probability.
+High P (e.g., 0.95): The AI will create a larger list of words whose probabilities add up to 95%.
+Example a non-English speaker can understand:
+Imagine you have a shopping bag and you will add items (words) until the bag's probability "weight" is full. Our budget is P = 0.80 (or 80%).
+Add the most likely word: eggs (50%).
+Total weight in bag: 50%. (50% is less than 80%, so we continue).
+Add the next most likely word: cereal (25%).
+Total weight in bag: 50% + 25% = 75%. (75% is less than 80%, so we continue).
+Add the next word: a car (10%).
+Total weight in bag: 75% + 10% = 85%. (85% is more than our 80% budget, so we STOP).
+The AI will now only choose from the words we put in the bag: {eggs, cereal}. The word a car was not included.
+Why is this better than Top-K? It's dynamic.
+If one word is very likely (e.g., "The" at 95%), a Top-P of 0.90 will only include that single word.
+If many words are similarly likely (e.g., in a creative story), a Top-P of 0.90 will include a larger group of them.
+Summary Table: Correlation and Effects
+This table helps you see the relationship between the values and the AI's behavior.
+Parameter	Low Value Effect (e.g., Temp=0.2, K=3, P=0.5)	High Value Effect (e.g., Temp=1.5, K=50, P=0.95)	Main Job
+Temperature	Focused & Safe <br> (Picks the obvious, most likely words. Less random.)	Creative & Random <br> (Considers even strange words. More diversity.)	Adjusts the randomness of the probability distribution.
+Top-K	Focused & Restricted <br> (Picks from a very small list of top choices.)	Diverse & Open <br> (Picks from a large list of choices. More random.)	Cuts the word list to a fixed size.
+Top-P	Focused & Safe <br> (Picks from the smallest group of most likely words.)	Diverse & Creative <br> (Picks from a larger, more dynamic group of words.)	Cuts the word list to a dynamic size based on probability.
+OVERALL	LOW VALUES = MORE PREDICTABLE & COHERENT	HIGH VALUES = MORE CREATIVE & DIVERSE	
+How they are used together: Often, you will set a temperature you like (e.g., 0.7 for a balance of creativity and sense) and then use either Top-K or Top-P to remove the very unlikely, nonsensical words from the final choice. Using Top-P is generally considered the more advanced and effective method.
+
+
+
+
+
+
+
+Tinkering with temperature score, top-k value, and top-p value can open up new pathways for exploration or narrow it down to the one you need. 
